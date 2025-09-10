@@ -1,2 +1,7 @@
-const server = require('../server'); // import your Express app
-module.exports = server;
+// api/index.js
+const app = require("../server");
+
+// Vercel expects a function
+module.exports = (req, res) => {
+  app(req, res);
+};
