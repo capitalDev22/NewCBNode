@@ -8,6 +8,8 @@ const mongoose = require('mongoose');
 const cartSession = require('./middleware/cartSession');
 
 const app = express();
+app.use(express.json());
+app.use(morgan('dev'));
 
 // Connect to MongoDB (add this after app initialization)
 mongoose.connect('mongodb://localhost:27017/windowcalculator', {
@@ -70,8 +72,12 @@ if (app._router && app._router.stack.length > 0) {
   logger.warn('⚠️ Express app has no routes mounted.');
 }
 
+// Export the app (important for Vercel)
+module.exports = app;
+
 // Start server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   logger.info(`🚀 Server running on port ${PORT}`);
+
 });
